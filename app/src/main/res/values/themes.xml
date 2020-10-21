@@ -13,7 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-
+    <style name="Theme.Epicture.Button">
+        <item name="android:textSize">19dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:padding">8dp</item>
+        <!--  <item name="android:textColor">@color/ColorDivider</item> -->
+        <item name="android:background">@color/buttonBackground</item>
+    </style>
     <style name="Theme.Epicture.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
