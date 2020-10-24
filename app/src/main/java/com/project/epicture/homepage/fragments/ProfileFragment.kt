@@ -34,10 +34,7 @@ class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks {
         if (response != null) {
             val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             rv.layoutManager = sglm
-            val imageList = ArrayList<String>()
-            for (r in response.data) {
-                imageList.add(r.link)
-            }
+            val imageList : List<ImgurModels.AccountImagesData> = response.data
             val igka = ImageAdaptater(requireContext(), imageList)
             rv.adapter = igka
         }
