@@ -9,8 +9,13 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar2"
@@ -18,7 +23,16 @@
             android:layout_height="wrap_content"
             android:background="#323232"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+            android:theme="?attr/actionBarTheme"
+            app:navigationIcon="@drawable/abc_vector_test" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -29,9 +43,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,6 +60,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
             android:adjustViewBounds="false"
+            android:backgroundTint="#FFFFFF"
             android:clickable="true"
             app:srcCompat="@android:drawable/arrow_up_float" />
 
@@ -54,6 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
             android:clickable="true"
             app:srcCompat="@android:drawable/arrow_down_float" />
 
@@ -63,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
             android:clickable="true"
             app:backgroundTint="#323232"
             app:rippleColor="#FFFFFF"
@@ -74,6 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
             android:clickable="true"
             app:srcCompat="?attr/actionModeShareDrawable" />
     </LinearLayout>
