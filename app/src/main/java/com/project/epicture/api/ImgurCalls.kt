@@ -1,17 +1,9 @@
 package com.project.epicture.api
 
-import android.net.Uri
-import android.os.FileUtils
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
 import java.lang.ref.WeakReference
-import android.content.Context
-import android.content.ContentResolver
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -25,7 +17,7 @@ class ImgurCalls {
         fun onFailure()
     }
 
-    fun getAccountImage(callbacks: ResponseAccountImagesCallbacks, token: String) {
+    fun getAccountImage(callbacks: ResponseAccountImagesCallbacks, token: String?) {
         val callbacksWeakReference: WeakReference<ResponseAccountImagesCallbacks> = WeakReference<ResponseAccountImagesCallbacks>(callbacks)
         var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
         val call: Call<ImgurModels.ResponseAccountImages> = imgur.getAccountImages("Bearer $token")
