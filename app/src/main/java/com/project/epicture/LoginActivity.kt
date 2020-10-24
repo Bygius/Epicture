@@ -32,26 +32,3 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 }
-
-//setResult(Activity.RESULT_CANCELED, return_intent);
-//println("finish 2\n")
-//finish()
-/*        if (intent != null && intent.getAction().equals(Intent.ACTION_VIEW)) {
-            val uri = intent.data
-            var s = uri.toString()
-            ////var str = s.substring(s.indexOf("#") + 1)
-            //token = s.substring(s.indexOf("#") + 1)
-            //println("2 ________" + token)
-            var data = intent
-            data.putExtra("data", s)
-            //data.putExtra(Intent.EXTRA_RETURN_RESULT, true)
-            if (parent == null) {
-                setResult(Activity.RESULT_OK, data);
-            } else {
-                parent.setResult(Activity.RESULT_OK, data);
-            }
-            finish()
-        } else if (intent.data != null) {
-            val myToast = Toast.makeText(applicationContext, "An error occur !", Toast.LENGTH_SHORT)
-            myToast.show()
-        }*/

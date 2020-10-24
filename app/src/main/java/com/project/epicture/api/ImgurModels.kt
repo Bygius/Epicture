@@ -90,8 +90,19 @@ interface ImgurModels {
             var mp4: String,
             var hls: String
     )
+
     data class ResponseImage (
         var data: ResponseImageData,
+        var success: Boolean,
+        var status: Int
+    )
+
+    data class ResponseAccountAvatarData (
+            var avatar: String,
+            var avatar_name: String
+    )
+    data class ResponseAccountAvatar (
+        var data: ResponseAccountAvatarData,
         var success: Boolean,
         var status: Int
     )
