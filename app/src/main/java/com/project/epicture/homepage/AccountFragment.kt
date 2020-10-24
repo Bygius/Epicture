@@ -1,4 +1,4 @@
-package com.example.epicture
+package com.project.epicture
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

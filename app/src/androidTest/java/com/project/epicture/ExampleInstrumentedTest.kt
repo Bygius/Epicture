@@ -1,4 +1,4 @@
-package com.example.epicture
+package com.project.epicture
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

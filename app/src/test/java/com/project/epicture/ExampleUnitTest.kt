@@ -1,4 +1,4 @@
-package com.example.epicture
+package com.project.epicture
 
 import org.junit.Test
 
