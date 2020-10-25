@@ -24,7 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.persistableBundleOf
 import androidx.loader.content.CursorLoader
 
-class uploadActivity : AppCompatActivity() {
+class uploadActivityFromFile : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

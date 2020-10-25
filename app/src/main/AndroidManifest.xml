@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Epicture.NoActionBar"
-        android:requestLegacyExternalStorage="true" >
+        android:requestLegacyExternalStorage="true">
         <activity android:name=".homepage.ImageActivity"
             android:parentActivityName=".homepage.HomePageActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.project.epicture.api.uploadActivity">
+            android:name="com.project.epicture.api.uploadActivityFromFile">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

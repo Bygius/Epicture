@@ -28,7 +28,7 @@ class ImageAdaptater(private val c: Context, private val images: List<ImgurModel
 
     override fun onBindViewHolder(holder: ColorViewHolder, position: Int) {
         val path = images[position].link
-        println("------------- ${path}")
+        //println("------------- ${path}")
 
         Picasso.with(c).load(path).resize(250, 250).centerCrop().into(holder.iv)
 

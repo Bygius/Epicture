@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import com.project.epicture.api.*
 import com.project.epicture.utils.SharedPreference
 
-class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, ImgurCalls.ResponseAccountAvatarCallbacks {
+class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, ImgurCalls.ResponseAccountAvatarCallbacks, ImgurCalls.ResponseSearchCallbacks {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -28,8 +28,10 @@ class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, Im
         rv.layoutManager = sglm
         val context: Context = this.context ?: return
         var token = SharedPreference(context).getValueString("access_token")
+        //ImgurCalls().getSearch(this, token)
         ImgurCalls().getAccountImage(this, token)
         ImgurCalls().getAccountAvatar(this, token)
+        //ImgurCalls().getSearch(this, token)
     }
     override fun onResponse(response: ImgurModels.ResponseAccountImages?) {
         if (response != null) {
@@ -43,6 +45,12 @@ class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, Im
     override fun onResponse(response: ImgurModels.ResponseAccountAvatar?) {
         if (response != null) {
             println(response.data)
+        }
+    }
+    override fun onResponse(response: ImgurModels.ResponseSearch?) {
+        if (response != null) {
+            //for (im in response.data)
+            //    println(im.id)
         }
     }
     override fun onFailure() {
