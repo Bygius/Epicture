@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_settings"
-        android:title="Settings"
+    <item
+        android:id="@+id/logout_button"
         android:contentDescription="@string/todo"
+        android:icon="@drawable/ic_log_out"
+        android:title="Log-Out"
         app:showAsAction="ifRoom" />
 </menu>

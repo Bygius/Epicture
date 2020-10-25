@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import androidx.recyclerview.widget.RecyclerView
 import com.project.epicture.R
 import com.project.epicture.api.ImgurModels
@@ -28,13 +31,17 @@ class ImageAdaptater(private val c: Context, private val images: List<ImgurModel
 
     override fun onBindViewHolder(holder: ColorViewHolder, position: Int) {
         val path = images[position].link
-        //println("------------- ${path}")
-
         Picasso.with(c).load(path).resize(250, 250).centerCrop().into(holder.iv)
-
         holder.iv.setOnClickListener {
-            val intent = Intent(c, ImageActivity::class.java)
-            c.startActivity(intent)
+            val intent = Intent(c, ImageActivity::class.java).apply {
+                putExtra("path", path)
+                putExtra("title", images.get(position).title)
+                putExtra("views", images.get(position).views)
+                putExtra("id", images.get(position).id)
+                //putExtra("like", images.get(position).vote.)
+                //putExtra("dislike", images.get(position).views.red)
+            }
+            startActivity(c, intent, null)
         }
     }
 

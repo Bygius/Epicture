@@ -22,6 +22,8 @@
     <string name="upload_title_fragment">Upload</string>
     <string name="username_profil">Username</string>
     <string name="todo">TODO</string>
+    <string name="post">Post</string>
+    <string name="favorite">Favorite</string>
 
 
 </resources>
