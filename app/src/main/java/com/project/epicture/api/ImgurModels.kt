@@ -1,5 +1,7 @@
 package com.project.epicture.api
 
+import android.text.BoringLayout
+
 interface ImgurModels {
     data class AccountSettingsData (
         var account_url: String,
@@ -259,5 +261,11 @@ interface ImgurModels {
         var data: Boolean,
         var success: Boolean,
         var status: Int
+    )
+
+    data class ResponseFavorite (
+            var data: String,
+            var success: Boolean,
+            var status: Int
     )
 }

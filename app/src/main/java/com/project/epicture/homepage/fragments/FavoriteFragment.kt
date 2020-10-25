@@ -30,9 +30,18 @@ class FavoriteFragment : Fragment(), ImgurCalls.ResponseAccountFavoritesCallback
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         super.onCreate(savedInstanceState)
+        val context: Context = this.context ?: return
+        var token = SharedPreference(context).getValueString("access_token")
+        var user_id = SharedPreference(context).getValueString("account_username")
 
-        val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rv.layoutManager = sglm
+        if (token != null) {
+            if (user_id != null) {
+                ImgurCalls().getAccountFavorites(this, token, user_id, "0")
+            }
+        }
+    }
+    override fun onResume() {
+        super.onResume()
         val context: Context = this.context ?: return
         var token = SharedPreference(context).getValueString("access_token")
         var user_id = SharedPreference(context).getValueString("account_username")
@@ -46,16 +55,15 @@ class FavoriteFragment : Fragment(), ImgurCalls.ResponseAccountFavoritesCallback
     override fun onResponse(response: ImgurModels.ResponseAccountFavorites?) {
         if (response != null) {
             val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            rv.layoutManager = sglm
-            val imageList = response.data as MutableList<ImgurModels.ResponseAccountFavoritesData>
-            val igka = ImageFavoriteAdaptater(requireContext(), imageList)
-            rv.adapter = igka
-        } else {
-            println("YYYYYYYYYYYYYESSSSSSSSSSSSSSSSSs")
+            if (rv != null) {
+                rv.layoutManager = sglm
+                val imageList = response.data as MutableList<ImgurModels.ResponseAccountFavoritesData>
+                val igka = ImageFavoriteAdaptater(requireContext(), imageList)
+                rv.adapter = igka
+            }
         }
     }
     override fun onFailure() {
-        println("======\n")
-        println("-----> error\n")
+
     }
 }

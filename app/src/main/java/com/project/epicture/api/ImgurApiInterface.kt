@@ -62,5 +62,5 @@ interface IImgurApi {
     fun postFavorite(
             @Header("Authorization") authHeader: String,
             @Path(value = "id", encoded = true) image_id: String
-    ): Call<ImgurModels.ResponseAccountFavorites>
+    ): Call<ImgurModels.ResponseFavorite>
 }

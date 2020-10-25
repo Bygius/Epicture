@@ -38,7 +38,6 @@ class ImageAdaptater(private val c: Context, private val images: List<ImgurModel
                 putExtra("title", images.get(position).title)
                 putExtra("views", images.get(position).views)
                 putExtra("id", images.get(position).id)
-                //putExtra("like", images.get(position).)
                 putExtra("dislike", images.get(position).views.red)
             }
             startActivity(c, intent, null)

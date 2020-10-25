@@ -29,30 +29,32 @@ class PostFragment : Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, Imgu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         super.onCreate(savedInstanceState)
-        val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rv.layoutManager = sglm
         val context: Context = this.context ?: return
         var token = SharedPreference(context).getValueString("access_token")
         ImgurCalls().getAccountImage(this, token)
     }
-
+    override fun onResume() {
+        super.onResume()
+        val context: Context = this.context ?: return
+        var token = SharedPreference(context).getValueString("access_token")
+        ImgurCalls().getAccountImage(this, token)
+    }
     override fun onResponse(response: ImgurModels.ResponseAccountImages?) {
         if (response != null) {
             val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            rv.layoutManager = sglm
-            val imageList = response.data as MutableList<ImgurModels.AccountImagesData>
-            val igka = ImageAdaptater(requireContext(), imageList)
-            rv.adapter = igka
-        }
-    }
-        override fun onResponse(response: ImgurModels.ResponseAccountAvatar?) {
-            if (response != null) {
-                println(response.data)
+            if (rv != null) {
+                rv.layoutManager = sglm
+                val imageList = response.data as MutableList<ImgurModels.AccountImagesData>
+                val igka = ImageAdaptater(requireContext(), imageList)
+                rv.adapter = igka
             }
         }
-
-        override fun onFailure() {
-            println("======\n")
-            println("-----> error\n")
+    }
+    override fun onResponse(response: ImgurModels.ResponseAccountAvatar?) {
+        if (response != null) {
         }
     }
+
+    override fun onFailure() {
+    }
+}

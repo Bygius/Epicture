@@ -36,7 +36,7 @@ class HomeAdaptater(private val c: Context, private val images: List<ImgurModels
         } else {
             path = images[position].images[0].link
         }
-        if (path != null) {
+        if (path != null && (path.endsWith(".jpg") || path.endsWith(".png"))) {
             Picasso.with(c).load(path).resize(250, 250).centerCrop().into(holder.iv)
             holder.iv.setOnClickListener {
                 val intent = Intent(c, ImageActivity::class.java).apply {

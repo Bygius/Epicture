@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayout
 import com.project.epicture.R
 //import com.project.epicture.R.layout.fragment_profile
 import com.project.epicture.utils.SharedPreference
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment: Fragment() {
     private var tool: Toolbar? = null
@@ -45,9 +46,17 @@ class ProfileFragment: Fragment() {
 
         return root
     }
+    private fun update_username()
+    {
+        var name : String? = activity?.let { SharedPreference(it).getValueString("account_username") }
+        if (name != null) {
+            username.text = name
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        update_username()
         tool?.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.logout_button -> {

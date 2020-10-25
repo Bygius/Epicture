@@ -36,7 +36,10 @@ class ImgurCalls {
         fun onResponse(images: ImgurModels.ResponseVote?)
         fun onFailure()
     }
-
+    interface ResponseFavoriteCallbacks {
+        fun onResponse(images: ImgurModels.ResponseFavorite?)
+        fun onFailure()
+    }
     fun getAccountImage(callbacks: ResponseAccountImagesCallbacks, token: String?) {
         val callbacksWeakReference: WeakReference<ResponseAccountImagesCallbacks> = WeakReference<ResponseAccountImagesCallbacks>(callbacks)
         var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
@@ -158,6 +161,24 @@ class ImgurCalls {
                 }
             }
             override fun onFailure(call: Call<ImgurModels.ResponseVote>, t: Throwable) {
+                println(t.message)
+                if (callbacksWeakReference != null) {
+                    callbacksWeakReference.get()?.onFailure()
+                }
+            }
+        });
+    }
+    fun postFavorite(callbacks: ResponseFavoriteCallbacks, token: String?, image_id: String) {
+        val callbacksWeakReference: WeakReference<ResponseFavoriteCallbacks> = WeakReference<ResponseFavoriteCallbacks>(callbacks)
+        var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
+        val call: Call<ImgurModels.ResponseFavorite> = imgur.postFavorite("Bearer $token", image_id)
+        call.enqueue(object: Callback<ImgurModels.ResponseFavorite> {
+            override fun onResponse(call: Call<ImgurModels.ResponseFavorite>, response: Response<ImgurModels.ResponseFavorite>) {
+                if (callbacksWeakReference != null) {
+                    callbacksWeakReference.get()?.onResponse(response.body())
+                }
+            }
+            override fun onFailure(call: Call<ImgurModels.ResponseFavorite>, t: Throwable) {
                 println(t.message)
                 if (callbacksWeakReference != null) {
                     callbacksWeakReference.get()?.onFailure()

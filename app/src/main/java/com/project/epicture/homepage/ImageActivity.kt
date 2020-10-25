@@ -1,17 +1,22 @@
 package com.project.epicture.homepage
+import android.content.Context
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.epicture.R
 import com.project.epicture.api.ImgurCalls
+import com.project.epicture.api.ImgurModels
+import com.project.epicture.utils.SharedPreference
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_image.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-class ImageActivity : AppCompatActivity() {
+class ImageActivity : AppCompatActivity() , ImgurCalls.ResponseFavoriteCallbacks {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
@@ -29,7 +34,23 @@ class ImageActivity : AppCompatActivity() {
         }
         val favorite = findViewById<FloatingActionButton>(R.id.favoriteButton)
         favorite.setOnClickListener() {
-            ImgurCalls()
+            favorite()
         }
+    }
+    private fun favorite() {
+        val context: Context = applicationContext //context ?: return
+        var token = SharedPreference(context).getValueString("access_token")
+        var id = intent.extras?.getString("id")
+        if (id != null) {
+            ImgurCalls().postFavorite(this, token, id)
+        }
+    }
+    override fun onResponse(response: ImgurModels.ResponseFavorite?) {
+        if (response != null) {
+        }
+    }
+
+    override fun onFailure() {
+
     }
 }

@@ -32,7 +32,7 @@ class HomeFragment : Fragment() , ImgurCalls.ResponseSearchCallbacks {
     {
         val context: Context = this.context ?: return
         var token = SharedPreference(context).getValueString("access_token")
-        ImgurCalls().getViral(this, token, "hot", "viral", "0", true)
+        ImgurCalls().getSearch(this, token, "top", "0", query)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,8 +41,9 @@ class HomeFragment : Fragment() , ImgurCalls.ResponseSearchCallbacks {
             .getIdentifier("android:id/search_src_text", null, null)
         val textView = searchView.findViewById<View>(id) as TextView
         textView.setTextColor(Color.WHITE)
-        val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rv_home.layoutManager = sglm
+        val context: Context = this.context ?: return
+        var token = SharedPreference(context).getValueString("access_token")
+        ImgurCalls().getViral(this, token, "user", "viral", "0", false)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
@@ -58,13 +59,13 @@ class HomeFragment : Fragment() , ImgurCalls.ResponseSearchCallbacks {
 
     override fun onResponse(response: ImgurModels.ResponseSearch?) {
         if (response != null) {
-            for (im in response.data)
-                println(im.id)
             val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            rv_home.layoutManager = sglm
-            val imageList = response.data as MutableList<ImgurModels.ResponseSearchData>
-            val igka = HomeAdaptater(requireContext(), imageList)
-            rv_home.adapter = igka
+            if (rv_home != null) {
+                rv_home.layoutManager = sglm
+                val imageList = response.data as MutableList<ImgurModels.ResponseSearchData>
+                val igka = HomeAdaptater(requireContext(), imageList)
+                rv_home.adapter = igka
+            }
         }
     }
 
