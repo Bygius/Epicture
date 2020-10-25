@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import com.project.epicture.api.*
 import com.project.epicture.utils.SharedPreference
 
-class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks {
+class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, ImgurCalls.ResponseAccountAvatarCallbacks {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -29,6 +29,7 @@ class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks {
         val context: Context = this.context ?: return
         var token = SharedPreference(context).getValueString("access_token")
         ImgurCalls().getAccountImage(this, token)
+        ImgurCalls().getAccountAvatar(this, token)
     }
     override fun onResponse(response: ImgurModels.ResponseAccountImages?) {
         if (response != null) {
@@ -37,6 +38,11 @@ class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks {
             val imageList : List<ImgurModels.AccountImagesData> = response.data
             val igka = ImageAdaptater(requireContext(), imageList)
             rv.adapter = igka
+        }
+    }
+    override fun onResponse(response: ImgurModels.ResponseAccountAvatar?) {
+        if (response != null) {
+            println(response.data)
         }
     }
     override fun onFailure() {

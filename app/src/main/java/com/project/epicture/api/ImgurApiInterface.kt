@@ -15,6 +15,11 @@ interface IImgurApi {
         @Header("Authorization") authHeader: String
     ): Call<ImgurModels.ResponseAccountImages>
 
+    @GET("/3/account/{username}/avatar")
+    fun getAccountAvatar(
+            @Header("Authorization") authHeader: String, @Path(value = "username", encoded = true) userId : String
+    ): Call<ImgurModels.ResponseAccountAvatar>
+
     @Multipart
     @POST("3/upload")
     fun postImage(

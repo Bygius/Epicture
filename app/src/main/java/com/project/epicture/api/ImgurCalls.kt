@@ -16,7 +16,10 @@ class ImgurCalls {
         fun onResponse(images: ImgurModels.ResponseAccountSettings?)
         fun onFailure()
     }
-
+    interface ResponseAccountAvatarCallbacks {
+        fun onResponse(images: ImgurModels.ResponseAccountAvatar?)
+        fun onFailure()
+    }
     fun getAccountImage(callbacks: ResponseAccountImagesCallbacks, token: String?) {
         val callbacksWeakReference: WeakReference<ResponseAccountImagesCallbacks> = WeakReference<ResponseAccountImagesCallbacks>(callbacks)
         var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
@@ -36,6 +39,24 @@ class ImgurCalls {
         });
     }
 
+    fun getAccountAvatar(callbacks: ResponseAccountAvatarCallbacks, token: String?) {
+        val callbacksWeakReference: WeakReference<ResponseAccountAvatarCallbacks> = WeakReference<ResponseAccountAvatarCallbacks>(callbacks)
+        var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
+        val call: Call<ImgurModels.ResponseAccountAvatar> = imgur.getAccountAvatar("Bearer $token", "Bygius")
+        call.enqueue(object: Callback<ImgurModels.ResponseAccountAvatar> {
+            override fun onResponse(call: Call<ImgurModels.ResponseAccountAvatar>, response: Response<ImgurModels.ResponseAccountAvatar>) {
+                if (callbacksWeakReference != null) {
+                    callbacksWeakReference.get()?.onResponse(response.body())
+                }
+            }
+            override fun onFailure(call: Call<ImgurModels.ResponseAccountAvatar>, t: Throwable) {
+                println(t.message)
+                if (callbacksWeakReference != null) {
+                    callbacksWeakReference.get()?.onFailure()
+                }
+            }
+        });
+    }
     fun getAccountSettings(callbacks: ResponseAccountSettingsCallbacks, token: String) {
         val callbacksWeakReference: WeakReference<ResponseAccountSettingsCallbacks> = WeakReference<ResponseAccountSettingsCallbacks>(callbacks)
         var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
@@ -54,41 +75,4 @@ class ImgurCalls {
             }
         });
     }
-/*    fun postImage(callbacks: ResponseImageCallbacks, token: String, file_uri: Uri) {
-
-        val callbacksWeakReference: WeakReference<ResponseImageCallbacks> = WeakReference<ResponseImageCallbacks>(callbacks)
-        var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
-        println("1\n")
-        var file : File = File(file_uri.path)
-        //(file_uri.path)
-        //val inputStream = contentResolver.openInputStream(Uri.fromFile(file))
-        //val requestFile = RequestBody.create(MediaType.parse("image/jpeg"), getBytes(inputStream))
-
-        //var requestFile: RequestBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
-        //println("2\n")
-
-        //var body : MultipartBody.Part = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-        //println("3\n")
-
-        //val call: Call<ImgurModels.ResponseImage> = imgur.postImage("Bearer $token",body)//imgur.getAccountSettings("Bearer $token")
-        println("4\n")
-       //val file = File(profileImagePath)
-        val inputStream = contentResolver.openInputStream(Uri.fromFile(file))
-        val requestFile = RequestBody.create(MediaType.parse("image/jpeg"), getBytes(inputStream))
-        body = MultipartBody.Part.createFormData("image", file.name, requestFile)
-
-        call.enqueue(object: Callback<ImgurModels.ResponseImage> {
-            override fun onResponse(call: Call<ImgurModels.ResponseImage>, response: Response<ImgurModels.ResponseImage>) {
-                if (callbacksWeakReference != null) {
-                    callbacksWeakReference.get()?.onResponse(response.body())
-                }
-            }
-            override fun onFailure(call: Call<ImgurModels.ResponseImage>, t: Throwable) {
-                println(t.message)
-                if (callbacksWeakReference != null) {
-                    callbacksWeakReference.get()?.onFailure()
-                }
-            }
-        });
-    }*/
 }
