@@ -26,7 +26,7 @@ class HomeFragment : Fragment() , ImgurCalls.ResponseSearchCallbacks {
     {
         val context: Context = this.context ?: return
         var token = SharedPreference(context).getValueString("access_token")
-        ImgurCalls().getSearch(this, token,"hot", "0", query)
+        ImgurCalls().getViral(this, token, "hot", "viral", "0", true)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,9 +49,9 @@ class HomeFragment : Fragment() , ImgurCalls.ResponseSearchCallbacks {
                 println(im.id)
         }
     }
+
     override fun onFailure() {
-        println("======\n")
-        println("-----> error\n")
+
     }
 
 }

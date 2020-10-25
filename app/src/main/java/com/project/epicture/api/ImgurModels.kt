@@ -210,8 +210,7 @@ interface ImgurModels {
         var wallUnsafeFlags: List<String>,
         var showsAds: Boolean
     )
-
-
+    
     data class ResponseSearchData (
         var id: String,
         var title: String,

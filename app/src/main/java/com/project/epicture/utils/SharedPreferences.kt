@@ -2,6 +2,7 @@ package com.project.epicture.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.project.epicture.homepage.fragments.HomeFragment
 
 /**
  * Created by Kolincodes on 10/05/2018.

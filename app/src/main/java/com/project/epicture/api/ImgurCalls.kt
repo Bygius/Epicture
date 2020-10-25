@@ -28,10 +28,15 @@ class ImgurCalls {
         fun onResponse(images: ImgurModels.ResponseSearch?)
         fun onFailure()
     }
+    interface ResponseViralCallbacks {
+        fun onResponse(images: ImgurModels.ResponseVote?)
+        fun onFailure()
+    }
     interface ResponseVoteCallbacks {
         fun onResponse(images: ImgurModels.ResponseVote?)
         fun onFailure()
     }
+
     fun getAccountImage(callbacks: ResponseAccountImagesCallbacks, token: String?) {
         val callbacksWeakReference: WeakReference<ResponseAccountImagesCallbacks> = WeakReference<ResponseAccountImagesCallbacks>(callbacks)
         var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
@@ -110,6 +115,24 @@ class ImgurCalls {
         val callbacksWeakReference: WeakReference<ResponseSearchCallbacks> = WeakReference<ResponseSearchCallbacks>(callbacks)
         var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
         val call: Call<ImgurModels.ResponseSearch> = imgur.getSearch("Bearer $token", sort, page, query)
+        call.enqueue(object: Callback<ImgurModels.ResponseSearch> {
+            override fun onResponse(call: Call<ImgurModels.ResponseSearch>, response: Response<ImgurModels.ResponseSearch>) {
+                if (callbacksWeakReference != null) {
+                    callbacksWeakReference.get()?.onResponse(response.body())
+                }
+            }
+            override fun onFailure(call: Call<ImgurModels.ResponseSearch>, t: Throwable) {
+                println(t.message)
+                if (callbacksWeakReference != null) {
+                    callbacksWeakReference.get()?.onFailure()
+                }
+            }
+        });
+    }
+    fun getViral(callbacks: ResponseSearchCallbacks, token: String?, section: String, sort: String, page : String, show_viral : Boolean) {
+        val callbacksWeakReference: WeakReference<ResponseSearchCallbacks> = WeakReference<ResponseSearchCallbacks>(callbacks)
+        var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
+        val call: Call<ImgurModels.ResponseSearch> = imgur.getViral("Bearer $token", section, sort, page, show_viral)
         call.enqueue(object: Callback<ImgurModels.ResponseSearch> {
             override fun onResponse(call: Call<ImgurModels.ResponseSearch>, response: Response<ImgurModels.ResponseSearch>) {
                 if (callbacksWeakReference != null) {

@@ -6,13 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.project.epicture.R
 import com.project.epicture.api.ImgurCalls
 import com.project.epicture.api.ImgurModels
-import com.project.epicture.homepage.ImageAdaptater
 import com.project.epicture.homepage.ImageFavoriteAdaptater
 import com.project.epicture.utils.SharedPreference
 import kotlinx.android.synthetic.main.fragment_test.*

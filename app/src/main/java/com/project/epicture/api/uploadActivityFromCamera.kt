@@ -5,24 +5,19 @@ import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.FileUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.project.epicture.utils.SharedPreference
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
-import android.content.Context
 import android.content.pm.PackageManager
 import android.provider.MediaStore
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
-import androidx.core.os.persistableBundleOf
 import androidx.loader.content.CursorLoader
 
 class uploadActivityFromCamera : AppCompatActivity() {

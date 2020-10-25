@@ -17,8 +17,9 @@ import com.google.android.material.tabs.TabLayout
 import com.project.epicture.utils.SharedPreference
 import kotlinx.android.synthetic.main.activity_home_page.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import com.project.epicture.api.ImgurCalls
 
-class HomePageActivity : AppCompatActivity() {
+class HomePageActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
@@ -36,8 +37,6 @@ class HomePageActivity : AppCompatActivity() {
             true
         }
     }
-
-
 
     private fun makeCurrentFragment(fragment: Fragment) =
             supportFragmentManager.beginTransaction().apply {

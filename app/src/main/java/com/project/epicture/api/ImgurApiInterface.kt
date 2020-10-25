@@ -30,12 +30,20 @@ interface IImgurApi {
 
     @GET("/3/gallery/search/{sort}/{window}/{page}")
     fun getSearch(
-            @Header("Authorization") authHeader: String,
-            @Path(value = "sort", encoded = true) userId : String,
-            @Path(value = "page", encoded = true) page : String,
-            @Query("q") query: String
+        @Header("Authorization") authHeader: String,
+        @Path(value = "sort", encoded = true) userId : String,
+        @Path(value = "page", encoded = true) page : String,
+        @Query("q") query: String
     ): Call<ImgurModels.ResponseSearch>
 
+    @GET("/3/gallery/{section}/{sort}/{page}")
+    fun getViral(
+        @Header("Authorization") authHeader: String,
+        @Path(value = "section", encoded = true) section : String,
+        @Path(value = "sort", encoded = true) sort : String,
+        @Path(value = "page", encoded = true) page : String,
+        @Query("showViral") show_viral: Boolean
+    ): Call<ImgurModels.ResponseSearch>
     @Multipart
     @POST("3/upload")
     fun postImage(
@@ -54,5 +62,5 @@ interface IImgurApi {
     fun postFavorite(
             @Header("Authorization") authHeader: String,
             @Path(value = "id", encoded = true) image_id: String
-    ): Call<ImgurModels.ResponseVote>
+    ): Call<ImgurModels.ResponseAccountFavorites>
 }
