@@ -33,7 +33,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +44,6 @@
             android:id="@+id/favoriteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
             android:clickable="true"
@@ -59,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
@@ -75,19 +74,69 @@
         android:id="@+id/linearLayout10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="30dp"
+        android:background="#323232"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:gravity="center|clip_vertical|center_horizontal|fill"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_view" />
+
+            <TextView
+                android:id="@+id/views"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textColor="#FFFFFF"
+                android:textSize="8sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:gravity="center|clip_vertical|center_horizontal|fill"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_thumb_up" />
+
+            <TextView
+                android:id="@+id/dislike"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textColor="#FFFFFF"
+                android:textSize="8sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
             android:gravity="center|clip_vertical|center_horizontal|fill"
             android:orientation="horizontal">
 
@@ -109,52 +158,6 @@
                 android:textSize="8sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center|clip_vertical|center_horizontal|fill"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_thumb_up" />
-
-            <TextView
-                android:id="@+id/dislike"
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="TextView"
-                android:textColor="#FFFFFF"
-                android:textSize="8sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center|clip_vertical|center_horizontal|fill"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_view" />
-
-            <TextView
-                android:id="@+id/views"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="TextView"
-                android:textColor="#FFFFFF"
-                android:textSize="8sp" />
-        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
