@@ -13,19 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Epicture.NoActionBar"
         android:requestLegacyExternalStorage="true" >
-        <activity android:name=".homepage.ImageActivity"
-            android:parentActivityName=".homepage.HomePageActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+        <activity android:name=".homepage.ImageActivity">
         </activity>
-        <activity android:name=".homepage.HomePageActivity"
-            android:parentActivityName=".MainActivity">
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+        <activity android:name=".homepage.HomePageActivity">
         </activity>
         <activity
             android:name=".MainActivity"

@@ -1,52 +1,65 @@
 package com.project.epicture.homepage.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.project.epicture.R
-import com.project.epicture.homepage.ImageAdaptater
-import kotlinx.android.synthetic.main.fragment_profile.*
-import com.project.epicture.api.*
+import com.project.epicture.R.layout.fragment_profile
 import com.project.epicture.utils.SharedPreference
 
-class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, ImgurCalls.ResponseAccountAvatarCallbacks {
+
+class ProfileFragment: Fragment() {
+    private var tool: Toolbar? = null
+
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+         val root = inflater.inflate(fragment_profile, container, false)
+        val list = ArrayList<Fragment>()
+
+        list.add(TestFragment())
+        list.add(TestFragment())
+        val page = root.findViewById<ViewPager>(R.id.page)
+
+        page.adapter = object :
+            FragmentPagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+            override fun getItem(i: Int): Fragment {
+                return list[i]
+            }
+
+            override fun getCount(): Int {
+                return list.size
+            }
+        }
+        val tab = root.findViewById<TabLayout>(R.id.tabs)
+        tab.setupWithViewPager(page)
+        tab.getTabAt(0)!!.text = "Post"
+        tab.getTabAt(1)!!.text = "Favorite"
+        tool = root.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        super.onCreate(savedInstanceState)
-        val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rv.layoutManager = sglm
-        val context: Context = this.context ?: return
-        var token = SharedPreference(context).getValueString("access_token")
-        ImgurCalls().getAccountImage(this, token)
-        ImgurCalls().getAccountAvatar(this, token)
-    }
-    override fun onResponse(response: ImgurModels.ResponseAccountImages?) {
-        if (response != null) {
-            val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            rv.layoutManager = sglm
-            val imageList : List<ImgurModels.AccountImagesData> = response.data
-            val igka = ImageAdaptater(requireContext(), imageList)
-            rv.adapter = igka
+
+        tool?.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.logout_button -> {
+                    context?.let { SharedPreference(it).clearSharedPreference() }
+                    activity?.finish()
+                }
+            }
+            true
         }
-    }
-    override fun onResponse(response: ImgurModels.ResponseAccountAvatar?) {
-        if (response != null) {
-            println(response.data)
-        }
-    }
-    override fun onFailure() {
-        println("======\n")
-        println("-----> error\n")
     }
 }
