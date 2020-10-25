@@ -40,6 +40,10 @@ class ImgurCalls {
         fun onResponse(images: ImgurModels.ResponseFavorite?)
         fun onFailure()
     }
+    interface ResponseDeleteCallbacks {
+        fun onResponse(images: ImgurModels.ResponseDelete?)
+        fun onFailure()
+    }
     fun getAccountImage(callbacks: ResponseAccountImagesCallbacks, token: String?) {
         val callbacksWeakReference: WeakReference<ResponseAccountImagesCallbacks> = WeakReference<ResponseAccountImagesCallbacks>(callbacks)
         var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
@@ -179,6 +183,24 @@ class ImgurCalls {
                 }
             }
             override fun onFailure(call: Call<ImgurModels.ResponseFavorite>, t: Throwable) {
+                println(t.message)
+                if (callbacksWeakReference != null) {
+                    callbacksWeakReference.get()?.onFailure()
+                }
+            }
+        });
+    }
+    fun delete(callbacks: ResponseDeleteCallbacks, token: String?, username: String, hash: String) {
+        val callbacksWeakReference: WeakReference<ResponseDeleteCallbacks> = WeakReference<ResponseDeleteCallbacks>(callbacks)
+        var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
+        val call: Call<ImgurModels.ResponseDelete> = imgur.deleteImage("Bearer $token", username, hash)
+        call.enqueue(object: Callback<ImgurModels.ResponseDelete> {
+            override fun onResponse(call: Call<ImgurModels.ResponseDelete>, response: Response<ImgurModels.ResponseDelete>) {
+                if (callbacksWeakReference != null) {
+                    callbacksWeakReference.get()?.onResponse(response.body())
+                }
+            }
+            override fun onFailure(call: Call<ImgurModels.ResponseDelete>, t: Throwable) {
                 println(t.message)
                 if (callbacksWeakReference != null) {
                     callbacksWeakReference.get()?.onFailure()

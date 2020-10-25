@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-class ImageActivity : AppCompatActivity() , ImgurCalls.ResponseFavoriteCallbacks {
+class ImageActivity : AppCompatActivity() , ImgurCalls.ResponseFavoriteCallbacks, ImgurCalls.ResponseDeleteCallbacks {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
@@ -36,6 +36,10 @@ class ImageActivity : AppCompatActivity() , ImgurCalls.ResponseFavoriteCallbacks
         favorite.setOnClickListener() {
             favorite()
         }
+        val del = findViewById<FloatingActionButton>(R.id.deleteButton)
+        del.setOnClickListener() {
+            delete()
+        }
     }
     private fun favorite() {
         val context: Context = applicationContext //context ?: return
@@ -45,11 +49,23 @@ class ImageActivity : AppCompatActivity() , ImgurCalls.ResponseFavoriteCallbacks
             ImgurCalls().postFavorite(this, token, id)
         }
     }
+    private fun delete() {
+        val context: Context = applicationContext //context ?: return
+        var token = SharedPreference(context).getValueString("access_token")
+        var hash = intent.extras?.getString("hash")
+        var user_name : String? = SharedPreference(this).getValueString("account_username")
+        if (hash != null && user_name != null) {
+            ImgurCalls().delete(this, token, user_name, hash)
+        }
+    }
     override fun onResponse(response: ImgurModels.ResponseFavorite?) {
         if (response != null) {
         }
     }
-
+    override fun onResponse(response: ImgurModels.ResponseDelete?) {
+        if (response != null) {
+        }
+    }
     override fun onFailure() {
 
     }

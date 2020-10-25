@@ -63,4 +63,10 @@ interface IImgurApi {
             @Header("Authorization") authHeader: String,
             @Path(value = "id", encoded = true) image_id: String
     ): Call<ImgurModels.ResponseFavorite>
+    @DELETE("3/account/{username}/image/{hash}")
+    fun deleteImage(
+            @Header("Authorization") authHeader: String,
+            @Path(value = "username", encoded = true) username: String,
+            @Path(value = "hash", encoded = true) hash: String
+    ): Call<ImgurModels.ResponseDelete>
 }

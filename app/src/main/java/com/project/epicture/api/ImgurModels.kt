@@ -268,4 +268,9 @@ interface ImgurModels {
             var success: Boolean,
             var status: Int
     )
+    data class ResponseDelete (
+            var data: Boolean,
+            var success: Boolean,
+            var status: Int
+    )
 }
