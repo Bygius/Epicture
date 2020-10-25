@@ -38,6 +38,7 @@ class ImageAdaptater(private val c: Context, private val images: List<ImgurModel
                 putExtra("path", path)
                 putExtra("title", images.get(position).title)
                 putExtra("views", images.get(position).views)
+                putExtra("id", images.get(position).id)
                 //putExtra("like", images.get(position).vote.)
                 //putExtra("dislike", images.get(position).views.red)
             }
