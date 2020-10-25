@@ -35,7 +35,7 @@ class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, Im
         val list = ArrayList<Fragment>()
 
         list.add(TestFragment())
-        list.add(TestFragment())
+        list.add(Test2Fragment())
         val page = root.findViewById<ViewPager>(R.id.page)
 
         page.adapter = object :
