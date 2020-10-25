@@ -29,8 +29,6 @@ class uploadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        //val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this, permissions, 10)
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -79,12 +77,9 @@ class uploadActivity : AppCompatActivity() {
         val call: Call<ImgurModels.ResponseImage> = imgur.postImage("Bearer $token", body)//service.upload(description, body)
         call.enqueue(object : Callback<ImgurModels.ResponseImage> {
             override fun onResponse(call: Call<ImgurModels.ResponseImage>, response: Response<ImgurModels.ResponseImage>) {
-                println(response.message())
                 finish()
             }
             override fun onFailure(call: Call<ImgurModels.ResponseImage>, t: Throwable) {
-                println("FAIL\n")
-                println(t.message + "\n")
                 finish()
             }
     });
