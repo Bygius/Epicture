@@ -6,6 +6,7 @@ import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.project.epicture.R
+import com.project.epicture.api.ImgurCalls
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -28,7 +29,7 @@ class ImageActivity : AppCompatActivity() {
         }
         val favorite = findViewById<FloatingActionButton>(R.id.favoriteButton)
         favorite.setOnClickListener() {
-
+            ImgurCalls()
         }
     }
 }

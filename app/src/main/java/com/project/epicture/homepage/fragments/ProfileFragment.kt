@@ -1,27 +1,17 @@
 package com.project.epicture.homepage.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.project.epicture.R
 //import com.project.epicture.R.layout.fragment_profile
 import com.project.epicture.utils.SharedPreference
-import com.project.epicture.api.*
-import com.project.epicture.homepage.ImageAdaptater
-import kotlinx.android.synthetic.main.fragment_test.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-
-import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment: Fragment() {
     private var tool: Toolbar? = null
@@ -33,8 +23,8 @@ class ProfileFragment: Fragment() {
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
         val list = ArrayList<Fragment>()
 
-        list.add(TestFragment())
-        list.add(Test2Fragment())
+        list.add(PostFragment())
+        list.add(FavoriteFragment())
         val page = root.findViewById<ViewPager>(R.id.page)
 
         page.adapter = object :
