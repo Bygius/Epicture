@@ -23,8 +23,8 @@ class ProfileFragment: Fragment() {
         val root = inflater.inflate(R.layout.fragment_profile, container, false)
         val list = ArrayList<Fragment>()
 
-        list.add(TestFragment())
-        list.add(Test2Fragment())
+        list.add(PostFragment())
+        list.add(FavoriteFragment())
         val page = root.findViewById<ViewPager>(R.id.page)
 
         page.adapter = object :

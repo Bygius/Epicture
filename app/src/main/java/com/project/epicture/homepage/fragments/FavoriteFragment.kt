@@ -1,10 +1,12 @@
 package com.project.epicture.homepage.fragments
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.project.epicture.R
@@ -12,21 +14,23 @@ import com.project.epicture.api.ImgurCalls
 import com.project.epicture.api.ImgurModels
 import com.project.epicture.homepage.ImageFavoriteAdaptater
 import com.project.epicture.utils.SharedPreference
-import kotlinx.android.synthetic.main.fragment_test.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_tab_layout.*
 
 
-class Test2Fragment : Fragment(), ImgurCalls.ResponseAccountFavoritesCallbacks {
+class FavoriteFragment : Fragment(), ImgurCalls.ResponseAccountFavoritesCallbacks {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_test, container, false)
+        return inflater.inflate(R.layout.fragment_tab_layout, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         super.onCreate(savedInstanceState)
+
         val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         rv.layoutManager = sglm
         val context: Context = this.context ?: return
