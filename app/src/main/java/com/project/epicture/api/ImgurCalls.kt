@@ -28,7 +28,10 @@ class ImgurCalls {
         fun onResponse(images: ImgurModels.ResponseSearch?)
         fun onFailure()
     }
-
+    interface ResponseVoteCallbacks {
+        fun onResponse(images: ImgurModels.ResponseVote?)
+        fun onFailure()
+    }
     fun getAccountImage(callbacks: ResponseAccountImagesCallbacks, token: String?) {
         val callbacksWeakReference: WeakReference<ResponseAccountImagesCallbacks> = WeakReference<ResponseAccountImagesCallbacks>(callbacks)
         var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
@@ -66,6 +69,7 @@ class ImgurCalls {
             }
         });
     }
+
     fun getAccountSettings(callbacks: ResponseAccountSettingsCallbacks, token: String) {
         val callbacksWeakReference: WeakReference<ResponseAccountSettingsCallbacks> = WeakReference<ResponseAccountSettingsCallbacks>(callbacks)
         var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
@@ -84,10 +88,10 @@ class ImgurCalls {
             }
         });
     }
-    fun getAccountFavorites(callbacks: ResponseAccountFavoritesCallbacks, token: String) {
+    fun getAccountFavorites(callbacks: ResponseAccountFavoritesCallbacks, token: String, user_id: String, page: String) {
         val callbacksWeakReference: WeakReference<ResponseAccountFavoritesCallbacks> = WeakReference<ResponseAccountFavoritesCallbacks>(callbacks)
         var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
-        val call: Call<ImgurModels.ResponseAccountFavorites> = imgur.getAccountFavorites("Bearer $token", "Bygius", "0")
+        val call: Call<ImgurModels.ResponseAccountFavorites> = imgur.getAccountFavorites("Bearer $token", user_id, page)
         call.enqueue(object: Callback<ImgurModels.ResponseAccountFavorites> {
             override fun onResponse(call: Call<ImgurModels.ResponseAccountFavorites>, response: Response<ImgurModels.ResponseAccountFavorites>) {
                 if (callbacksWeakReference != null) {
@@ -113,6 +117,24 @@ class ImgurCalls {
                 }
             }
             override fun onFailure(call: Call<ImgurModels.ResponseSearch>, t: Throwable) {
+                println(t.message)
+                if (callbacksWeakReference != null) {
+                    callbacksWeakReference.get()?.onFailure()
+                }
+            }
+        });
+    }
+    fun postVote(callbacks: ResponseVoteCallbacks, token: String?, image_id: String, vote: String) {
+        val callbacksWeakReference: WeakReference<ResponseVoteCallbacks> = WeakReference<ResponseVoteCallbacks>(callbacks)
+        var imgur = ImgurService().retrofit.create(IImgurApi::class.java)
+        val call: Call<ImgurModels.ResponseVote> = imgur.postVote("Bearer $token", image_id, vote)
+        call.enqueue(object: Callback<ImgurModels.ResponseVote> {
+            override fun onResponse(call: Call<ImgurModels.ResponseVote>, response: Response<ImgurModels.ResponseVote>) {
+                if (callbacksWeakReference != null) {
+                    callbacksWeakReference.get()?.onResponse(response.body())
+                }
+            }
+            override fun onFailure(call: Call<ImgurModels.ResponseVote>, t: Throwable) {
                 println(t.message)
                 if (callbacksWeakReference != null) {
                     callbacksWeakReference.get()?.onFailure()

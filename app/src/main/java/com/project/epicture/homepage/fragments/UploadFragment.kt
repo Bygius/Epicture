@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.project.epicture.R
+import com.project.epicture.api.uploadActivityFromCamera
 
 import com.project.epicture.api.uploadActivityFromFile
 import kotlinx.android.synthetic.main.fragment_upload.*
@@ -25,10 +26,11 @@ class UploadFragment : Fragment() {
 
         filebutton.setOnClickListener() {
             val intent = Intent(context, uploadActivityFromFile::class.java)
-            startActivityForResult(intent, 42)
+            startActivity(intent)
         }
         photobutton.setOnClickListener() {
-
+            //val intent = Intent(context, uploadActivityFromCamera::class.java)
+            //startActivityForResult(intent, 42)
         }
     }
 }

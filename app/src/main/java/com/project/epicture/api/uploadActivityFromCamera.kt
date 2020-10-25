@@ -1,6 +1,7 @@
 package com.project.epicture.api
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -24,7 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.persistableBundleOf
 import androidx.loader.content.CursorLoader
 
-class uploadActivityFromFile : AppCompatActivity() {
+class uploadActivityFromCamera : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +33,19 @@ class uploadActivityFromFile : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this, permissions, 10)
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, 42)
+            val values = ContentValues(1)
+            values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
+            val fileUri = contentResolver
+                    .insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            values)
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+            if(intent.resolveActivity(packageManager) != null) {
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                startActivityForResult(intent, 21)
+            }
         } else
             finish()
     }
@@ -44,16 +55,11 @@ class uploadActivityFromFile : AppCompatActivity() {
         val shared: SharedPreference = SharedPreference(this)
         val tok = shared.getValueString("access_token")
 
-        if (resultCode == Activity.RESULT_OK && requestCode == 42){
-            if (data != null && tok != null && data.data != null) {
-                var uri = data.data
-                if (uri != null) {
-                    postImage(uri)
-                }
-            }
+        if (resultCode == Activity.RESULT_OK && requestCode == 21) {
+
         }
-        finish()
     }
+
     private fun getRealPathFromURI(contentUri: Uri): String? {
         val proj = arrayOf(MediaStore.Images.Media.DATA)
         val loader = CursorLoader(applicationContext, contentUri, proj, null, null, null)

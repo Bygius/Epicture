@@ -13,7 +13,9 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import com.project.epicture.api.*
 import com.project.epicture.utils.SharedPreference
 
-class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, ImgurCalls.ResponseAccountAvatarCallbacks, ImgurCalls.ResponseSearchCallbacks {
+class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, ImgurCalls.ResponseAccountAvatarCallbacks, ImgurCalls.ResponseSearchCallbacks, ImgurCalls.ResponseVoteCallbacks{
+    val CLIENT_ID = "f78aba81ff33038"
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -30,7 +32,8 @@ class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, Im
         var token = SharedPreference(context).getValueString("access_token")
         //ImgurCalls().getSearch(this, token)
         ImgurCalls().getAccountImage(this, token)
-        ImgurCalls().getAccountAvatar(this, token)
+        //ImgurCalls().getAccountAvatar(this, token)
+        ImgurCalls().postVote(this, token, "qPJSLjN","veto")
         //ImgurCalls().getSearch(this, token)
     }
     override fun onResponse(response: ImgurModels.ResponseAccountImages?) {
@@ -38,6 +41,9 @@ class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, Im
             val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             rv.layoutManager = sglm
             val imageList : List<ImgurModels.AccountImagesData> = response.data
+            //for (im in imageList) {
+            //    println("=== " + im.id + "\n")
+            //}
             val igka = ImageAdaptater(requireContext(), imageList)
             rv.adapter = igka
         }
@@ -49,6 +55,15 @@ class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, Im
     }
     override fun onResponse(response: ImgurModels.ResponseSearch?) {
         if (response != null) {
+            //println(response.data)
+            //for (im in response.data)
+            //    println(im.id)
+        }
+    }
+
+    override fun onResponse(response: ImgurModels.ResponseVote?) {
+        if (response != null) {
+        //    println(response.data)
             //for (im in response.data)
             //    println(im.id)
         }

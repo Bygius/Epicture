@@ -28,7 +28,6 @@ interface IImgurApi {
             @Path(value = "page", encoded = true) page : String
     ): Call<ImgurModels.ResponseAccountFavorites>
 
-
     @GET("/3/gallery/search/{sort}/{window}/{page}")
     fun getSearch(
             @Header("Authorization") authHeader: String,
@@ -43,4 +42,17 @@ interface IImgurApi {
             @Header("Authorization") authHeader: String,
             @Part file: MultipartBody.Part
     ): Call<ImgurModels.ResponseImage>
+
+    @POST("/3/gallery/image/{id}/vote/{vote}")
+    fun postVote(
+            @Header("Authorization") authHeader: String,
+            @Path(value = "id", encoded = true) image_id: String,
+            @Path(value = "vote", encoded = true) vote : String
+    ): Call<ImgurModels.ResponseVote>
+
+    @POST("/3/image/{id}/favorite")
+    fun postFavorite(
+            @Header("Authorization") authHeader: String,
+            @Path(value = "id", encoded = true) image_id: String
+    ): Call<ImgurModels.ResponseVote>
 }
