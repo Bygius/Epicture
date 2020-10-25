@@ -14,24 +14,23 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.project.epicture.R
-import com.project.epicture.R.layout.fragment_profile
+//import com.project.epicture.R.layout.fragment_profile
 import com.project.epicture.utils.SharedPreference
-import com.project.epicture.api.ImgurCalls
-import com.project.epicture.api.ImgurModels
+import com.project.epicture.api.*
 import com.project.epicture.homepage.ImageAdaptater
 import kotlinx.android.synthetic.main.fragment_test.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 
-class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, ImgurCalls.ResponseAccountAvatarCallbacks, ImgurCalls.ResponseSearchCallbacks, ImgurCalls.ResponseVoteCallbacks{
+import kotlinx.android.synthetic.main.fragment_profile.*
 
-    val CLIENT_ID = "f78aba81ff33038"
-
+class ProfileFragment: Fragment() {
     private var tool: Toolbar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-         val root = inflater.inflate(fragment_profile, container, false)
+        val root = inflater.inflate(R.layout.fragment_profile, container, false)
         val list = ArrayList<Fragment>()
 
         list.add(TestFragment())
@@ -68,50 +67,5 @@ class ProfileFragment: Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, Im
             }
             true
         }
-        val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        rv.layoutManager = sglm
-        val context: Context = this.context ?: return
-        var token = SharedPreference(context).getValueString("access_token")
-        //ImgurCalls().getSearch(this, token)
-        ImgurCalls().getAccountImage(this, token)
-        //ImgurCalls().getAccountAvatar(this, token)
-        ImgurCalls().postVote(this, token, "qPJSLjN","veto")
-        //ImgurCalls().getSearch(this, token)
-    }
-    override fun onResponse(response: ImgurModels.ResponseAccountImages?) {
-        if (response != null) {
-            val sglm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            rv.layoutManager = sglm
-            val imageList : List<ImgurModels.AccountImagesData> = response.data
-            //for (im in imageList) {
-            //    println("=== " + im.id + "\n")
-            //}
-            val igka = ImageAdaptater(requireContext(), imageList)
-            rv.adapter = igka
-        }
-    }
-    override fun onResponse(response: ImgurModels.ResponseAccountAvatar?) {
-        if (response != null) {
-            println(response.data)
-        }
-    }
-    override fun onResponse(response: ImgurModels.ResponseSearch?) {
-        if (response != null) {
-            //println(response.data)
-            //for (im in response.data)
-            //    println(im.id)
-        }
-    }
-
-    override fun onResponse(response: ImgurModels.ResponseVote?) {
-        if (response != null) {
-        //    println(response.data)
-            //for (im in response.data)
-            //    println(im.id)
-        }
-    }
-    override fun onFailure() {
-        println("======\n")
-        println("-----> error\n")
     }
 }

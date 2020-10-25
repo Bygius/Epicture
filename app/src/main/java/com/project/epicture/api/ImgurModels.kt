@@ -111,8 +111,8 @@ interface ImgurModels {
         var title: String,
         var description: String,
         var cover: String,
-        var cover_width: String,
-        var cover_height: String,
+        var cover_width: Int,
+        var cover_height: Int,
         var width: Int,
         var height: Int,
         var account_url: String,
@@ -127,7 +127,7 @@ interface ImgurModels {
         var is_album: Boolean,
         var vote: String,
         var favorite: Boolean,
-        var nsfw: String,
+        var nsfw: Boolean,
         var section: String,
         var comment_count: Int,
         var favorite_count: Int,
@@ -135,10 +135,10 @@ interface ImgurModels {
         var topic_id: String,
         var image_count: Int,
         var datetime: Int,
-        var in_gallery: String,
+        var in_gallery: Boolean,
         var in_most_viral: Boolean,
-        var tags: List<String>,
-        var images: String,
+        //var tags: List<String>,
+        //var images: String,
         var has_sound: Boolean,
         var animated: Boolean,
         var type: String,
@@ -146,7 +146,7 @@ interface ImgurModels {
     )
 
     data class ResponseAccountFavorites (
-        var data: ResponseAccountFavoritesData,
+        var data: List<ResponseAccountFavoritesData>,
         var success: Boolean,
         var status: Int
     )

@@ -17,8 +17,8 @@ import com.project.epicture.homepage.fragments.ProfileFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_grid.view.*
 
-class ImageAdaptater(private val c: Context, private val images: List<ImgurModels.AccountImagesData>) :
-    RecyclerView.Adapter<ImageAdaptater.ColorViewHolder>() {
+class ImageFavoriteAdaptater(private val c: Context, private val images: List<ImgurModels.ResponseAccountFavoritesData>) :
+    RecyclerView.Adapter<ImageFavoriteAdaptater.ColorViewHolder>() {
 
 
     override fun getItemCount(): Int {
@@ -30,18 +30,23 @@ class ImageAdaptater(private val c: Context, private val images: List<ImgurModel
     }
 
     override fun onBindViewHolder(holder: ColorViewHolder, position: Int) {
-        val path = images[position].link
-        Picasso.with(c).load(path).resize(250, 250).centerCrop().into(holder.iv)
-        holder.iv.setOnClickListener {
-            val intent = Intent(c, ImageActivity::class.java).apply {
-                putExtra("path", path)
-                putExtra("title", images.get(position).title)
-                putExtra("views", images.get(position).views)
-                putExtra("id", images.get(position).id)
-                //putExtra("like", images.get(position).)
-                putExtra("dislike", images.get(position).views.red)
+        var path: String? = null
+        if (images[position].is_album == false) {
+            path = images[position].link
+        }
+        if (path != null) {
+            Picasso.with(c).load(path).resize(250, 250).centerCrop().into(holder.iv)
+            holder.iv.setOnClickListener {
+                val intent = Intent(c, ImageActivity::class.java).apply {
+                    putExtra("path", path)
+                    putExtra("title", images.get(position).title)
+                    putExtra("views", images.get(position).views)
+                    putExtra("id", images.get(position).id)
+                    putExtra("like", images.get(position).ups)
+                    putExtra("dislike", images.get(position).downs)
+                }
+                startActivity(c, intent, null)
             }
-            startActivity(c, intent, null)
         }
     }
 

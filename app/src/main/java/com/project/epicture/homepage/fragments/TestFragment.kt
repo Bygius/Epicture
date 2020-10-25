@@ -34,7 +34,6 @@ class TestFragment : Fragment(), ImgurCalls.ResponseAccountImagesCallbacks, Imgu
         val context: Context = this.context ?: return
         var token = SharedPreference(context).getValueString("access_token")
         ImgurCalls().getAccountImage(this, token)
-        ImgurCalls().getAccountAvatar(this, token)
     }
 
     override fun onResponse(response: ImgurModels.ResponseAccountImages?) {

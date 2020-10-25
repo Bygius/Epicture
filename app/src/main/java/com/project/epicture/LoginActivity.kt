@@ -26,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
             val shared: SharedPreference = SharedPreference(this)
             var uri = intent.data.toString()
             val pairs = uri.substring(uri.indexOf("#") + 1).split("&")
+            println(pairs)
             for (p: String in pairs) {
                 shared.save(p.substring(0, p.indexOf("=")), p.substring(p.indexOf("=") + 1))
                 println(p.substring(0, p.indexOf("=")) + "\n")
